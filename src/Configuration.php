@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AE;
+namespace AE\Application;
 
 use AE\Domain\Shared\PdoConfiguration;
 
