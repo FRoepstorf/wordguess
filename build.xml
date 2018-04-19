@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="wordguess">
+    <property name="static-php-process-count" value="15"/>
+
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties">
+        <classpath>
+            <pathelement location="ant/ant-contrib-1.0b3.jar"/>
+        </classpath>
+    </taskdef>
+
+    <condition property="filter" else="false">
+        <isset property="f"/>
+    </condition>
+
+    <target name="csfix">
+        <exec executable="vendor/bin/php-cs-fixer" failonerror="true">
+            <arg value="fix"/>
+        </exec>
+    </target>
+
+    <target name="test-unit">
+        <if>
+            <equals arg1="${filter}" arg2="true" />
+            <then>
+                <exec executable="vendor/bin/phpunit" failonerror="true">
+                    <arg value="--testsuite"/>
+                    <arg value="unit"/>
+                    <arg value="--filter" />
+                    <arg value="${f}" />
+                    <arg value="--no-coverage"/>
+                </exec>
+            </then>
+            <else>
+                <exec executable="vendor/bin/phpunit" failonerror="true">
+                    <arg value="--testsuite"/>
+                    <arg value="unit"/>
+                    <arg value="--no-coverage"/>
+                </exec>
+            </else>
+        </if>
+    </target>
+    <target name="test-unit-cover">
+        <if>
+            <equals arg1="${filter}" arg2="true" />
+            <then>
+                <exec executable="vendor/bin/phpunit" failonerror="true">
+                    <arg value="--testsuite"/>
+                    <arg value="unit"/>
+                    <arg value="--filter" />
+                    <arg value="${f}" />
+                    <arg value="--testdox" />
+                </exec>
+            </then>
+            <else>
+                <exec executable="vendor/bin/phpunit" failonerror="true">
+                    <arg value="--testsuite"/>
+                    <arg value="unit"/>
+                </exec>
+            </else>
+        </if>
+    </target>
+    <target name="test-integration-cover">
+        <if>
+            <equals arg1="${filter}" arg2="true" />
+            <then>
+                <exec executable="vendor/bin/phpunit" failonerror="true">
+                    <arg value="--testsuite"/>
+                    <arg value="integration"/>
+                    <arg value="--filter" />
+                    <arg value="${f}" />
+                </exec>
+            </then>
+            <else>
+                <exec executable="vendor/bin/phpunit" failonerror="true">
+                    <arg value="--testsuite"/>
+                    <arg value="integration"/>
+                </exec>
+            </else>
+        </if>
+    </target>
+    <target name="composer">
+        <exec executable="composer" failonerror="true">
+            <arg value="--no-interaction"/>
+            <arg value="--ignore-platform-reqs"/>
+            <arg value="install"/>
+        </exec>
+    </target>
+</project>
+
