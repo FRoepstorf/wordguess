@@ -78,12 +78,5 @@
             </else>
         </if>
     </target>
-    <target name="composer">
-        <exec executable="composer" failonerror="true">
-            <arg value="--no-interaction"/>
-            <arg value="--ignore-platform-reqs"/>
-            <arg value="install"/>
-        </exec>
-    </target>
 </project>
 
