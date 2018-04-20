@@ -42,7 +42,7 @@ class GameCommandParameters
     private function gameAfterGuess(Game $game, string $newGuess): Game
     {
         $guessedChars = $game->guessedChars()->asString() . " " . $newGuess;
-        $allLeters = range('a', 'Z');
+        $allLeters = range('a', 'z');
         $lettersGuessed = explode(' ', $guessedChars);
         $unguessed = array_diff($allLeters, $lettersGuessed);
         $remainingWordToGuess = str_replace($unguessed, ' _', $game->wordToGuess()->asString());
