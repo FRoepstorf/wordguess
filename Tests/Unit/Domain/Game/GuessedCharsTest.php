@@ -1,9 +1,37 @@
 <?php
 
-namespace AE\Domain\Game;
+namespace Unit\Domain\Game;
 
 
-class GuessedCharsTest extends \PHPUnit_Framework_TestCase
+use AE\Domain\Game\GuessedChars;
+use ArgumentCountError;
+use PHPUnit\Framework\TestCase;
+
+/**
+ * @covers AE\Domain\Game\GuessedChars
+ */
+class GuessedCharsTest extends TestCase
 {
 
+    public function testCanCreateGuessedChars()
+    {
+        $this->assertInstanceOf(GuessedChars::class, $this->createGuessedChars('test'));
+    }
+
+    public function testCanGetGuessedCharsAsString()
+    {
+        $guessedChars = $this->createGuessedChars('test');
+        $this->assertSame('test', $guessedChars->asString());
+    }
+
+    public function testCanNotLeaveParameterBlank()
+    {
+        $this->expectException(ArgumentCountError::class);
+        $this->createGuessedChars();
+    }
+
+    private function createGuessedChars(string $guessedchars): GuessedChars
+    {
+        return new GuessedChars($guessedchars);
+    }
 }
