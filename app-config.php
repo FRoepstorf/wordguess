@@ -1,7 +1,7 @@
 <?php
 
 return [
-    "words" => ["test", "Deutschland", "Schweiz", "Finnland", "Kolumbien"],
+    "words" => ["test", "deutschland", "schweiz", "finnland", "kolumbien"],
     "pdo" => [
         "host" => "localhost:3308",
         "database" => "hangman",

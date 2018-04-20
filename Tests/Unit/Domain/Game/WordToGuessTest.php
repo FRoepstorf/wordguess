@@ -1,9 +1,31 @@
 <?php
 
-namespace AE\Domain\Game;
+namespace Unit\Domain\Game;
 
 
-class WordToGuessTest extends \PHPUnit_Framework_TestCase
+use AE\Domain\Game\WordToGuess;
+use PHPUnit\Framework\TestCase;
+
+/**
+ * @covers AE\Domain\Game\WordToGuess
+ */
+class WordToGuessTest extends TestCase
 {
+    public function testCanGetWordToGuessAsString()
+    {
+        $wordToGuess = $this->createWordToGuess('test');
 
+        $this->assertSame('test', $wordToGuess->asString());
+    }
+
+    public function testExpectExceptionIfParamterNotSet()
+    {
+        $this->expectException(\ArgumentCountError::class);
+        $this->createWordToGuess();
+    }
+
+    private function createWordToGuess(string $wordToGuess): WordToGuess
+    {
+        return new WordToGuess($wordToGuess);
+    }
 }
